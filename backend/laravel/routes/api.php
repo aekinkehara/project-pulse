@@ -8,5 +8,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 use App\Http\Controllers\Api\ClientController;
+use App\Http\Controllers\Api\ProjectController;
 
 Route::apiResource('clients', ClientController::class);
+Route::apiResource('projects', ProjectController::class);
