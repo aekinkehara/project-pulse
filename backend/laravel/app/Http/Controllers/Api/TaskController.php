@@ -28,7 +28,7 @@ class TaskController extends Controller
             'title'       => 'required|string|max:255',
             'description' => 'nullable|string',
             'category'    => 'nullable|string',
-            'status'      => 'nullable|in:todo,in_progress,done,completed',
+            'status'      => 'nullable|in:todo,in_progress,review,done',
             'deadline'    => 'nullable|date',
         ]);
 
@@ -73,7 +73,7 @@ class TaskController extends Controller
             'title'       => 'sometimes|required|string|max:255',
             'description' => 'nullable|string',
             'category'    => 'nullable|string',
-            'status'      => 'nullable|in:todo,in_progress,done,completed',
+            'status'      => 'nullable|in:todo,in_progress,review,done',
             'deadline'    => 'nullable|date',
         ]);
 

@@ -29,3 +29,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('tasks', TaskController::class);
     Route::apiResource('time-logs', TimeLogController::class);
 });
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/users', function () {
+        return response()->json([
+            'data' => \App\Models\User::all()
+        ]);
+    });
+});

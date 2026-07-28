@@ -13,17 +13,15 @@ class Project extends Model
         'client_id',
         'name',
         'description',
-        'deadline',
         'status',
+        'deadline',
     ];
 
-    // Project dimiliki oleh 1 Client
     public function client()
     {
         return $this->belongsTo(Client::class);
     }
 
-    // Project punya banyak Task
     public function tasks()
     {
         return $this->hasMany(Task::class);
