@@ -4,39 +4,54 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    // Ambil semua task beserta project, assignee, dan time logs-nya
+    // Ambil semua task sama relasinya
     public function index()
     {
         $tasks = Task::with(['project', 'assignee', 'timeLogs'])->latest()->get();
         return response()->json([
             'success' => true,
-            'data' => $tasks
+            'data'    => $tasks
         ]);
     }
 
     // Tambah task baru
     public function store(Request $request)
     {
-        $request->validate([
-            'project_id' => 'required|exists:projects,id',
+        $validated = $request->validate([
+            'project_id'  => 'nullable|exists:projects,id',
             'assignee_id' => 'nullable|exists:users,id',
-            'title' => 'required|string|max:255',
+            'title'       => 'required|string|max:255',
             'description' => 'nullable|string',
-            'category' => 'nullable|string',
-            'status' => 'nullable|in:todo,in_progress,completed',
-            'deadline' => 'nullable|date',
+            'category'    => 'nullable|string',
+            'status'      => 'nullable|in:todo,in_progress,done,completed',
+            'deadline'    => 'nullable|date',
         ]);
 
-        $task = Task::create($request->all());
+        // Fallback jika project_id belum dipilih, kaitkan ke project pertama
+        if (empty($validated['project_id'])) {
+            $firstProject = Project::first();
+            if ($firstProject) {
+                $validated['project_id'] = $firstProject->id;
+            }
+        }
+
+        // Fallback untuk field optional/non-null
+        $validated['description'] = $validated['description'] ?? '';
+        $validated['category']    = $validated['category'] ?? 'General';
+        $validated['status']      = $validated['status'] ?? 'todo';
+        $validated['deadline']    = $validated['deadline'] ?? now()->addDays(3)->toDateString();
+
+        $task = Task::create($validated);
 
         return response()->json([
             'success' => true,
             'message' => 'Task berhasil dibuat',
-            'data' => $task
+            'data'    => $task
         ], 201);
     }
 
@@ -45,29 +60,29 @@ class TaskController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => $task->load(['project', 'assignee', 'timeLogs.user'])
+            'data'    => $task->load(['project', 'assignee', 'timeLogs.user'])
         ]);
     }
 
-    // Update task (misal ubah status dari todo ke in_progress)
+    // Update task
     public function update(Request $request, Task $task)
     {
-        $request->validate([
-            'project_id' => 'sometimes|required|exists:projects,id',
+        $validated = $request->validate([
+            'project_id'  => 'nullable|exists:projects,id',
             'assignee_id' => 'nullable|exists:users,id',
-            'title' => 'sometimes|required|string|max:255',
+            'title'       => 'sometimes|required|string|max:255',
             'description' => 'nullable|string',
-            'category' => 'nullable|string',
-            'status' => 'nullable|in:todo,in_progress,completed',
-            'deadline' => 'nullable|date',
+            'category'    => 'nullable|string',
+            'status'      => 'nullable|in:todo,in_progress,done,completed',
+            'deadline'    => 'nullable|date',
         ]);
 
-        $task->update($request->all());
+        $task->update(array_filter($validated, fn($val) => !is_null($val)));
 
         return response()->json([
             'success' => true,
             'message' => 'Task berhasil diupdate',
-            'data' => $task
+            'data'    => $task
         ]);
     }
 

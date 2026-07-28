@@ -7,8 +7,17 @@ use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\TimeLogController;
 
+// Fallback Route jika belum login (mencegah error 'Route [login] not defined')
+Route::get('/login', function () {
+    return response()->json(['message' => 'Unauthenticated.'], 401);
+})->name('login');
+
 // Public Routes (Login)
 Route::post('/login', [AuthController::class, 'login']);
+
+// Opsi Testing: Jika frontend belum kirim Token, buka komentar 2 baris di bawah ini:
+// Route::apiResource('tasks', TaskController::class);
+// Route::apiResource('time-logs', TimeLogController::class);
 
 // Protected Routes (Harus Login)
 Route::middleware('auth:sanctum')->group(function () {
@@ -18,5 +27,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('clients', ClientController::class);
     Route::apiResource('projects', ProjectController::class);
     Route::apiResource('tasks', TaskController::class);
-    Route::apiResource('time-logs', TimeLogController::class)->except(['update', 'show']);
+    Route::apiResource('time-logs', TimeLogController::class);
 });

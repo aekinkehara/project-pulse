@@ -27,7 +27,18 @@ class ClientController extends Controller
             'company' => 'nullable|string',
         ]);
 
-        $client = Client::create($request->all());
+       $validated = $request->validate([
+        'name'    => 'required|string|max:255',
+        'contact' => 'nullable|string',
+        'company' => 'nullable|string',
+    ]);
+
+    // Gunakan $validated agar hanya data yang lolos validasi yang di-insert ke DB
+    $client = Client::create([
+        'name'    => $validated['name'],
+        'contact' => $validated['contact'] ?? '-',
+        'company' => $validated['company'] ?? $validated['name'],
+    ]);
 
         return response()->json([
             'success' => true,

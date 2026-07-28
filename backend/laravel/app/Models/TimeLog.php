@@ -12,18 +12,36 @@ class TimeLog extends Model
     protected $fillable = [
         'task_id',
         'user_id',
-        'start_time',
-        'end_time',
-        'duration',
+        'duration_minutes',
+        'notes',
     ];
 
-    // TimeLog milik 1 Task
+    protected $appends = ['hours', 'date', 'description'];
+
+    public function getHoursAttribute()
+    {
+        return isset($this->attributes['duration_minutes'])
+            ? round($this->attributes['duration_minutes'] / 60, 2)
+            : 0;
+    }
+
+    public function getDateAttribute()
+    {
+        return isset($this->attributes['created_at'])
+            ? substr($this->attributes['created_at'], 0, 10)
+            : date('Y-m-d');
+    }
+
+    public function getDescriptionAttribute()
+    {
+        return $this->attributes['notes'] ?? '-';
+    }
+
     public function task()
     {
         return $this->belongsTo(Task::class);
     }
 
-    // TimeLog dicatat oleh 1 User
     public function user()
     {
         return $this->belongsTo(User::class);
