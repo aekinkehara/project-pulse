@@ -1,15 +1,16 @@
-# mobile
+# React + Vite
 
-Aplikasi untuk role `member` (developer/desainer). Pilih salah satu stack — urutan preferensi: **Ionic** (paling diutamakan) → **React Native** (setara) → **Flutter** (poin preferensi stack terkecil, kualitas implementasi tetap dinilai penuh).
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-Struktur yang disarankan:
+Currently, two official plugins are available:
 
-- **Ionic / React Native**: `src/{screens,components,services}`
-- **Flutter**: `lib/{screens,components,services}`
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-Isi minimal:
-- `screens/` (atau `pages/`) — layar login, daftar task, detail task, riwayat task selesai, notifikasi.
-- `components/` — widget/komponen yang dipakai berulang.
-- `services/` — pemanggilan API ke backend (auth, tasks, time-logs), penyimpanan token.
+## React Compiler
 
-Hapus sub-folder yang tidak dipakai (mis. kalau pilih Flutter, hapus folder `src/` dan generate `lib/` lewat `flutter create`).
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the Oxlint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
