@@ -1,0 +1,144 @@
+{
+  "info": {
+    "name": "Pulse Project Management API (Live Data)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Clients",
+      "item": [
+        {
+          "name": "Get All Clients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/clients",
+              "host": ["{{base_url}}"],
+              "path": ["api", "clients"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "item": [
+        {
+          "name": "Get All Projects",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/projects",
+              "host": ["{{base_url}}"],
+              "path": ["api", "projects"]
+            }
+          }
+        },
+        {
+          "name": "Store Project (Redesign Website Perusahaan)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Redesign Website Perusahaan\",\n  \"client_id\": 3,\n  \"description\": \"Project pengerjaan ulang landing page dan dashboard client\",\n  \"deadline\": \"2026-12-31\",\n  \"status\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/projects",
+              "host": ["{{base_url}}"],
+              "path": ["api", "projects"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tasks",
+      "item": [
+        {
+          "name": "Get All Tasks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/tasks",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "Store Task",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Implementasi Design\",\n  \"project_id\": 2,\n  \"description\": \"Coding 1/4 dari design web\",\n  \"assignee\": \"Budi Developer\",\n  \"deadline\": \"2026-07-31\",\n  \"status\": \"in_progress\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tasks",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tasks"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI Task Breakdown",
+      "item": [
+        {
+          "name": "Generate Tasks from Brief",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"client_brief\": \"Membuat company profile sony dengan tema futuristic\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/generate-tasks",
+              "host": ["{{base_url}}"],
+              "path": ["api", "generate-tasks"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Time Logs",
+      "item": [
+        {
+          "name": "Get Time Logs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/time-logs",
+              "host": ["{{base_url}}"],
+              "path": ["api", "time-logs"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
