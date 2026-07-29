@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\TimeLogController;
+use App\Http\Controllers\ProjectAiController;
 
 // Fallback Route jika belum login (mencegah error 'Route [login] not defined')
 Route::get('/login', function () {
@@ -37,3 +38,9 @@ Route::middleware('auth:sanctum')->group(function () {
         ]);
     });
 });
+
+// Route untuk generate task pakai AI
+Route::post('/projects/generate-ai-tasks', [ProjectAiController::class, 'generateTasks']);
+
+// Route untuk simpan project beserta task-nya
+Route::post('/projects/store-with-tasks', [ProjectAiController::class, 'storeProjectWithTasks']);
