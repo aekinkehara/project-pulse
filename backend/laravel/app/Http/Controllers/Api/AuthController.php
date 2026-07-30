@@ -19,7 +19,22 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        if (! $user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email tidak ditemukan.'
+            ], 401);
+        }
+
+        // Cek password aman dengan penanganan teks biasa / bcrypt
+        $isValid = false;
+        try {
+            $isValid = Hash::check($request->password, $user->password);
+        } catch (\Exception $e) {
+            $isValid = ($request->password === $user->password);
+        }
+
+        if (! $isValid) {
             return response()->json([
                 'success' => false,
                 'message' => 'Email atau password salah.'
