@@ -1,7 +1,9 @@
 # Take-Home Technical Test — Full Stack Developer
 https://github.com/user-attachments/assets/3a0a72ac-8876-4a73-b0df-fffe4274a60a
+
 <img width="161" height="350" alt="Screenshot 2026-07-30 234336" src="https://github.com/user-attachments/assets/e0cf1132-f8e3-4df6-aa8e-f11d15d5e272" />
 <img width="368" height="394" alt="Screenshot 2026-07-30 234325" src="https://github.com/user-attachments/assets/f408d8c3-9dd8-41e7-ba5a-c0b49a3e3db9" />
+<img width="161" height="349" alt="Screenshot 2026-07-30 234343" src="https://github.com/user-attachments/assets/148f7d6b-d28c-4f99-87e1-eac4cd79772e" />
 
 # Pulse Mobile Portal
 
