@@ -74,7 +74,7 @@ export default function LoginScreen({ onLoginSuccess }) {
             disabled={loading}
             className="w-full bg-[#111111] hover:bg-black text-white py-3 rounded-xl font-semibold shadow-lg transition"
           >
-            {loading ? 'Memproses Token...' : 'Login Sanctum API'}
+            {loading ? 'Memproses...' : 'Login'}
           </button>
         </form>
       </div>
